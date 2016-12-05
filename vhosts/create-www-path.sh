@@ -18,6 +18,9 @@ usermod -g sftp $sftp_user
 # set new home directory for sftp user
 usermod -d /var/www/${www_domain} $sftp_user
 
+# disable shell access for sftp user
+usermod -s /bin/false $sftp_user
+
 # set right directory owner
 chown root:sftp /var/www/${www_domain}
 chown ${sftp_user}:sftp /var/www/${www_domain}/www
