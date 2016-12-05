@@ -16,7 +16,7 @@ read sftp_user
 useradd -g sftp $sftp_user
 
 # set new home directory for sftp user
-usermod -d ${www_domain}
+usermod -d /var/www/${www_domain}
 
 # set right directory owner
 chown root:sftp /var/www/${www_domain}
