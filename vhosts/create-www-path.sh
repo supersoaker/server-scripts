@@ -13,7 +13,7 @@ echo "Please enter sftp user:"
 read sftp_user
 
 # add user to group sftp
-useradd -g sftp $sftp_user
+usermod -g sftp $sftp_user
 
 # set new home directory for sftp user
 usermod -d /var/www/${www_domain}
