@@ -12,8 +12,11 @@ mkdir -p /var/www/${www_domain}/log/
 echo "Please enter sftp user:"
 read sftp_user
 
+# add user to group sftp
+useradd $sftp_user -g sftp
+
 # set new home directory for sftp user
-usermod --home ${www_domain}
+usermod -d ${www_domain}
 
 # set right directory owner
 chown root:sftp /var/www/${www_domain}
@@ -23,19 +26,19 @@ chown ${sftp_user}:sftp /var/www/${www_domain}/log
 # set right directory permissions
 chmod 755 /var/www/${www_domain}
 
+set_up_apache_vhost () 
+{
+	cp ./apache-vhost.conf /etc/apache2/sites-available/${1}.conf
+	sed -i "s/##doc_root##/$1/g" /etc/apache2/sites-available/${1}.conf
+	sed -i "s/##server_user##/$2/g" /etc/apache2/sites-available/${1}.conf
+}
+
 # ask to set up apache vhosts
 while true; do
-    read -p "Do you wish to install this program (y/n)?" yn
+    read -p "Do you want to set up /etc/apache2/sites-available/${www_domain}.conf (y/n)?" yn
     case $yn in
         [Yy]* ) set_up_apache_vhost ${www_domain} ${sftp_user}; break;;
         [Nn]* ) exit;;
         * ) echo "Please answer yes or no.";;
     esac
 done
-
-set_up_apache_vhost () 
-{
-	cp ./apache-vhost.conf /etc/apache2/sites-available/${1}.conf
-	sed -i "s/${doc_root}/$1/g" /etc/apache2/sites-available/${1}.conf
-	sed -i "s/${server_user}/$2/g" /etc/apache2/sites-available/${1}.conf
-}
