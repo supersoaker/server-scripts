@@ -32,7 +32,7 @@ chmod 755 /var/www/${www_domain}
 set_up_apache_vhost () 
 {
 	cp ./apache-vhost.conf /etc/apache2/sites-available/${1}.conf
-	sed -i "s/##doc_root##/$1/g" /etc/apache2/sites-available/${1}.conf
+	sed -i "s/##domain_name##/$1/g" /etc/apache2/sites-available/${1}.conf
 	sed -i "s/##server_user##/$2/g" /etc/apache2/sites-available/${1}.conf
 }
 
