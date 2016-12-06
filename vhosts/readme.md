@@ -1,9 +1,10 @@
-First create a user with 
+First create a user and set password
 ```sh
-sh create-user.sh
+useradd USERNAME
+passwd USERNAME
 ```
 
-Afterwards create all www paths
+Afterwards create all www paths and modify user profile
 ```sh
 sh create-www-path.sh
 ```
